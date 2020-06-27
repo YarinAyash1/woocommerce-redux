@@ -6,6 +6,8 @@ import Products from './componnets/Products';
 import Cart from './componnets/Cart';
 import Layout from './componnets/Layout/Layout';
 import Product from './componnets/Product';
+import Wishlist from './componnets/Wishlist';
+import Login from './componnets/Login/Login';
 
 const Index = () => <h2>Home</h2>;
 
@@ -17,6 +19,8 @@ function App() {
           <Route path="/products" component={Products}/>
           <Route path="/product/:id" component={Product}/>
           <Route path="/cart" component={Cart}/>
+          <Route path="/wishlist" component={Wishlist}/>
+          <Route path="/login" component={Login}/>
       </ Layout>
     </Router>
   );
