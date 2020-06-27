@@ -6,9 +6,10 @@ import * as serviceWorker from './serviceWorker';
 
 import store from './store/store';
 import { Provider } from 'react-redux';
-import { loadCart } from "./store/actions";
+import { loadCart, loadWishlist } from "./store/actions";
 
 store.dispatch( loadCart() );
+store.dispatch( loadWishlist() );
 
 ReactDOM.render(
   <React.StrictMode>
