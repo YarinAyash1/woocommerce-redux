@@ -50,6 +50,44 @@ const cart = (state = [], action) => {
     return state;
 };
 
+const wishlist = (state = [], action) => {
+
+    switch (action.type) {
+        case 'LOAD_WISHLIST':
+            try {
+                return JSON.parse(localStorage.getItem('wishlist')) || [];
+            } catch (e) {
+                localStorage.setItem('wishlist', JSON.stringify([]));
+                return [];
+            }
+
+        case 'ADD_TO_WISHLIST':
+            const { product } = action;
+            let exists = false;
+    
+            const changed = state.map((p) => {
+                if (p.id === product.id) {
+                    exists = true;
+                    p.message = 'exists in wishlist';
+                }
+                return p;
+            });
+    
+            if (!exists) {
+                return state.concat(product);
+            }
+    
+            return changed;
+
+        case 'REMOVE_FROM_WISHLIST':
+                return state.filter((e) => {
+                    return e.id !== action.product.id;
+                });
+        default:
+                return state;
+    }
+}
+
 const logger = (store) => (next) => (action) => {
     console.log("dispatching", action);
     console.log("next state", store.getState());
@@ -78,9 +116,28 @@ const updateLocalStorageCart = (store) => (next) => (action) => {
     return result;
 };
 
+const updateLocalStorageWishlist = (store) => (next) => (action) => {
+    let result = next(action);
+
+    if (action.type === 'ADD_TO_WISHLIST' ||
+        action.type === 'REMOVE_FROM_WISHLIST') {
+
+        try {
+            localStorage.setItem('wishlist', JSON.stringify(store.getState()['wishlist']));
+        } catch (e) {
+
+            console.log("Error!!", e);
+            localStorage.setItem('wishlist', JSON.stringify([]));
+
+        }
+
+    }
+    return result;
+};
+
 
 
 export default createStore(combineReducers({
-    cart,
-}), applyMiddleware(logger, thunk, updateLocalStorageCart));
+    cart,wishlist
+}), applyMiddleware(logger, thunk, updateLocalStorageCart, updateLocalStorageWishlist));
 

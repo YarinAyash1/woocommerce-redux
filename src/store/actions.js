@@ -14,9 +14,31 @@ const addToCart = (product) => {
     }
 };
 
+const addToWishlist = (product) => {
+
+    var productObject = {
+        id: product.id,
+        name: product.name,
+        price: parseFloat(product.price),
+        images: product.images,
+    };
+
+
+    return {
+        type: 'ADD_TO_WISHLIST',
+        product: productObject
+    }
+};
+
 const removeFromCart = (product) => {
     return {
         type: 'REMOVE_FROM_CART',
+        product
+    }
+};
+const removeFromWishlist = (product) => {
+    return {
+        type: 'REMOVE_FROM_WISHLIST',
         product
     }
 };
@@ -34,4 +56,10 @@ const loadCart = () => {
     }
 };
 
-export { addToCart, removeFromCart, removeProductItem, loadCart };
+const loadWishlist = () => {
+    return {
+        type: 'LOAD_WISHLIST',
+    }
+};
+
+export { addToCart, removeFromCart, removeProductItem, loadCart, addToWishlist, removeFromWishlist, loadWishlist };

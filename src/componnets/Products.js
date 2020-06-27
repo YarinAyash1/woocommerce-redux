@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { addToCart } from "../store/actions";
+import { addToCart, addToWishlist } from "../store/actions";
 import { getProducts } from '../api/woocommerce'
 import Loader from './Loader/loader'
 import Notification from "./Notifications/Notification";
@@ -34,6 +34,7 @@ function Products(props){
                               <div>{product.name}</div>
                               <div>{product.price}</div>
                               <button onClick={() => props.addToCart(product)}>Add to cart</button>
+                              <button onClick={() => props.addToWishlist(product)}>Add to wishlist</button>
                               <Link to={`/product/${product.id}`}>
                                 <button>View Product</button>
                               </Link>
@@ -52,6 +53,9 @@ function Products(props){
     return {
       addToCart(product) {
         dispatch(addToCart(product));
+      },
+      addToWishlist(product){
+        dispatch(addToWishlist(product));
       }
     };
   };
