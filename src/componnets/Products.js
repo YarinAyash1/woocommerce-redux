@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { addToCart } from "../store/actions";
 import { getProducts } from '../api/woocommerce'
 import Loader from './Loader/loader'
-import Cart from "./Cart";
 import Notification from "./Notifications/Notification";
+import { Link } from "react-router-dom";
 
 function Products(props){
 
@@ -34,13 +34,15 @@ function Products(props){
                               <div>{product.name}</div>
                               <div>{product.price}</div>
                               <button onClick={() => props.addToCart(product)}>Add to cart</button>
+                              <Link to={`/product/${product.id}`}>
+                                <button>View Product</button>
+                              </Link>
                           </div>
                       })
                   : <Notification type='alert' msg='Products Not Found' />
 
                 : <Loader />
             }
-            <Cart />
         </div>
     )
 }

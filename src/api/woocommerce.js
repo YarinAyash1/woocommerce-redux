@@ -22,5 +22,10 @@ const getProducts = (page, per_page) => {
     return axios.get(`${process.env.REACT_APP_WOO_API_ENDPOINT}/wp-json/wc/v3/products`, defaultHeaders)
 };
 
+const getProduct = (productId) => {
 
-export { getProducts };
+    return axios.get(`${process.env.REACT_APP_WOO_API_ENDPOINT}/wp-json/wc/v3/products/${productId}`, defaultHeaders)
+};
+
+
+export { getProducts, getProduct };
