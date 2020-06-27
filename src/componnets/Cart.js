@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import { connect } from "react-redux";
-import { removeFromCart, removeProductItem, addToCart } from "../actions";
+import { removeFromCart, removeProductItem, addToCart } from "../store/actions";
+import Message from "./Notifications/Notification";
 
 function Cart(props){
     useEffect(() => {
@@ -27,7 +28,7 @@ function Cart(props){
                             <button onClick={() => props.removeFromCart(product)}>Remove Item</button>
                         </div>
                     })
-                : 'Empty Cart'
+                : <Message type='alert' msg='Empty Cart' />
             }
         </div>
     )

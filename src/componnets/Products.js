@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { addToCart } from "../actions";
+import { addToCart } from "../store/actions";
 import { getProducts } from '../api/woocommerce'
+import Loader from './Loader/loader'
 import Cart from "./Cart";
+import Notification from "./Notifications/Notification";
 
 function Products(props){
 
@@ -12,7 +14,9 @@ function Products(props){
         const fetchProducts = async (page, per_page) => {
             let res = await getProducts(page, per_page);
             setProducts(res.data);
-            setLoading(false);
+            setTimeout(() => {
+              setLoading(false);
+            }, 1000);
         };
 
         fetchProducts(1, 12);
@@ -29,12 +33,12 @@ function Products(props){
                               <div>{product.id}</div>
                               <div>{product.name}</div>
                               <div>{product.price}</div>
-                              <button onClick={() => props.addToCart(product)}>+</button>
+                              <button onClick={() => props.addToCart(product)}>Add to cart</button>
                           </div>
                       })
-                  : 'Products Not Found'
+                  : <Notification type='alert' msg='Products Not Found' />
 
-                : 'Loading...'
+                : <Loader />
             }
             <Cart />
         </div>
