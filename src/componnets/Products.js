@@ -5,6 +5,8 @@ import { getProducts } from '../api/woocommerce'
 import Loader from './Loader/loader'
 import Notification from "./Notifications/Notification";
 import { Link } from "react-router-dom";
+import SidebarFilter from './SidebarFilter/SidebarFilter';
+
 
 function Products(props){
 
@@ -24,6 +26,8 @@ function Products(props){
 
     return(
         <div>
+            <SidebarFilter />
+          <div>
             {
               !loading ? 
                   products.length ? 
@@ -44,6 +48,7 @@ function Products(props){
 
                 : <Loader />
             }
+            </div>
         </div>
     )
 }
