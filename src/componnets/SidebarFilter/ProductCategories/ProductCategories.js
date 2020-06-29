@@ -25,18 +25,21 @@ function ProductCategories(props){
     }
 
     return(
+      <div className="categories">
+        <h3>Categories</h3>
         <ul>
             {
               !loading ? 
               categories.length ? 
-                  categories.map((category) => {
-                          return <li key={category.id}><a onClick={() => handleClick(category.id)}>{category.name}</a></li>
-                      })
-                  : <Notification type='alert' msg='categories Not Found' />
-
-                : 'Loading'
+              categories.map((category) => {
+                return <li key={category.id}><a onClick={() => handleClick(category.id)}>{category.name}</a></li>
+              })
+              : <Notification type='alert' msg='categories Not Found' />
+              
+              : 'Loading'
             }
         </ul>
+      </div>
     )
 }
 

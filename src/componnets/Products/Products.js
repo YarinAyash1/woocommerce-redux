@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { addToCart, addToWishlist } from "../store/actions";
-import { getProducts } from '../api/woocommerce'
-import Loader from './Loader/loader'
-import Notification from "./Notifications/Notification";
+import { addToCart, addToWishlist } from "../../store/actions";
+import { getProducts } from '../../api/woocommerce'
+import Loader from '../Loader/loader'
+import Notification from "../Notifications/Notification";
 import { Link } from "react-router-dom";
-import SidebarFilter from './SidebarFilter/SidebarFilter';
-
+import SidebarFilter from '../SidebarFilter/SidebarFilter';
+import './products.scss'
 
 function Products(props){
 
@@ -25,9 +25,9 @@ function Products(props){
     }, []);
 
     return(
-        <div>
+        <div className="products">
             <SidebarFilter />
-          <div>
+          <div className="products-list">
             {
               !loading ? 
                   products.length ? 

@@ -24,21 +24,29 @@ function Attributes(props){
     }
 
     return(
-        <ul>
-            {
-              !loading ? 
-              attributes.length ? 
-                attributes.map((list) => {
-                    let attrs= list.map((attribute, index) => {
-                        return <li key={attribute.id}><a onClick={() => handleClick(attribute.id)}>{attribute.name}</a></li>
+        <div className="attributes">
+            <div>
+                {
+                !loading ? 
+                attributes.length ? 
+                    attributes.map((terms) => {
+                        return <div>
+                            <h3>{terms.label}</h3>
+                            <ul>
+                            {
+                                terms.map((term) => {
+                                    return <li>{term.name}</li>
+                                })
+                            }
+                            </ul>
+                        </div>
                     })
-                    return attrs
-                })
-                  : <Notification type='alert' msg='Attrs Not Found' />
+                    : <Notification type='alert' msg='Attrs Not Found' />
 
-                : 'Loading'
-            }
-        </ul>
+                    : 'Loading'
+                }
+            </div>
+        </div>
     )
 }
 

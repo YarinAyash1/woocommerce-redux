@@ -1,0 +1,30 @@
+.sidebar{
+    h3{
+        font-size: 18px;
+        font-weight: 700;
+    }
+    ul {
+        list-style: none;
+        padding-left: 20px;
+        font-size: 15px;
+        font-weight: 400;
+        color: #333;
+        li{
+            cursor: pointer;
+            position: relative;
+            &::before{
+                content: "";
+                position: absolute;
+                left: -20px;
+                width: 10px;
+                height: 11px;
+                border: 1px solid;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+    }
+}

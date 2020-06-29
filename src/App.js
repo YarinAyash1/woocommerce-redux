@@ -2,7 +2,7 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import Products from './componnets/Products';
+import Products from './componnets/Products/Products';
 import Cart from './componnets/Cart';
 import Layout from './componnets/Layout/Layout';
 import Product from './componnets/Product';

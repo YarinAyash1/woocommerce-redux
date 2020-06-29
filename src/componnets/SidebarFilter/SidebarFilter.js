@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 //import Loader from '../Loader/loader'
 import ProductCategories from './ProductCategories/ProductCategories'
 import Attributes from "./Attributes/Attributes";
-
+import './sidebar.scss'
 function SidebarFilter(props){
 
     const [loading, setLoading] = useState(true)
