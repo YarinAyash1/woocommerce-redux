@@ -48,9 +48,8 @@ const getAttributes = async () => {
         // here candidate data is inserted into  
         let insertResponse = await axios.get(`${process.env.REACT_APP_WOO_API_ENDPOINT}/wp-json/wc/v3/products/attributes/${attr.id}/terms`, defaultHeaders2);  
         // and response need to be added into final response array 
-        let obj = {
-            [attr.name]: insertResponse.data
-        }
+
+        insertResponse.data['label'] = attr.name;
         generatedResponse.push(insertResponse.data)
       } catch (error) {
         console.log('error'+ error);
