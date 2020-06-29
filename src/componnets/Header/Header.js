@@ -1,7 +1,7 @@
 import React from 'react'
 import NavMenu from './NavMenu'
 import MiniCart from '../MiniCart'
-//import './loader.scss'
+import './Header.scss'
 const Header  = () => {
     return(
         <div className="header">
