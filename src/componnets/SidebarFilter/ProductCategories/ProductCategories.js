@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCategories } from '../../../api/woocommerce'
-
+import Loader from '../../Loader/loader'
+import { useQuery, queryCache } from "react-query";
 import Notification from "../../Notifications/Notification";
 
 function ProductCategories(props){
@@ -8,17 +9,11 @@ function ProductCategories(props){
     const [loading, setLoading] = useState(true)
     const [categories, setCategories] = useState([])
     const [queryCat, setQueryCategory] = useState(0)
-    useEffect(() => {
-        const fetchCategories = async (page, per_page) => {
-            let res = await getCategories(page, per_page);
-            setCategories(res.data);
-            setTimeout(() => {
-              setLoading(false);
-            }, 1000);
-        };
 
-        fetchCategories(1, 12);
-    }, []);
+    const { status, data, error, isFetching } = useQuery("categories", async () => {
+      const { data } = await getCategories(1, 12);
+      return data;
+    });
 
     const handleClick = (category) => {
       setQueryCategory(category)
@@ -27,18 +22,22 @@ function ProductCategories(props){
     return(
       <div className="categories">
         <h3>Categories</h3>
+        {status === "loading" ? (
+                <Loader />
+              ) : status === "error" ? (
+                  <Notification type="alert" msg={error.message} />
+              ) : (
+              <>
         <ul>
             {
-              !loading ? 
-              categories.length ? 
-              categories.map((category) => {
+              data.map((category) => {
                 return <li key={category.id}><a onClick={() => handleClick(category.id)}>{category.name}</a></li>
               })
-              : <Notification type='alert' msg='categories Not Found' />
               
-              : 'Loading'
             }
         </ul>
+              </>
+            )}
       </div>
     )
 }

@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { getAttributes } from '../../../api/woocommerce'
+import Loader from '../../Loader/loader'
+import { useQuery, queryCache } from "react-query";
 import Notification from "../../Notifications/Notification";
 function Attributes(props){
-
-    const [loading, setLoading] = useState(true)
-    const [attributes, setAttributes] = useState([])
     const [queryAttr, setAttr] = useState(0)
-    useEffect(() => {
-        const fetchAttributes = async () => {
-            let res = await getAttributes();
-            setAttributes(res);
-
-            setTimeout(() => {
-                setLoading(false);
-            }, 1000);
-        };
-
-        fetchAttributes(1, 12);
-    }, []);
+    const { status, data, error, isFetching } = useQuery("attributes", async () => {
+        const data = await getAttributes();
+        return data;
+      });
 
     const handleClick = (attr) => {
         setAttr(attr)
@@ -26,25 +17,29 @@ function Attributes(props){
     return(
         <div className="attributes">
             <div>
-                {
-                !loading ? 
-                attributes.length ? 
-                    attributes.map((terms) => {
-                        return <div>
+            {status === "loading" ? (
+                <Loader />
+              ) : status === "error" ? (
+                  <Notification type="alert" msg={error.message} />
+              ) : (
+              <>
+              {
+
+                  data.map((terms) => {
+                      return <div>
                             <h3>{terms.label}</h3>
                             <ul>
                             {
                                 terms.map((term) => {
-                                    return <li>{term.name}</li>
+                                    return <li onClick={() => handleClick(term.id)}>{term.name}</li>
                                 })
                             }
                             </ul>
                         </div>
                     })
-                    : <Notification type='alert' msg='Attrs Not Found' />
-
-                    : 'Loading'
                 }
+              </>
+            )}
             </div>
         </div>
     )
